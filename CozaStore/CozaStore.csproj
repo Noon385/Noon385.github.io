@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,9 +128,49 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CozaHomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Admin.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Banner.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CozaStore.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CozaStore.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CozaStore.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CozaStore.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CozaStore.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetailsOrder.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -160,6 +208,9 @@
     <Content Include="Asset\images\blog-04.jpg" />
     <Content Include="Asset\images\blog-05.jpg" />
     <Content Include="Asset\images\blog-06.jpg" />
+    <Content Include="Asset\images\CAMPUS_80S.jpg" />
+    <Content Include="Asset\images\Chuck_70s.jpg" />
+    <Content Include="Asset\images\CommaDes.jpg" />
     <Content Include="Asset\images\gallery-01.jpg" />
     <Content Include="Asset\images\gallery-02.jpg" />
     <Content Include="Asset\images\gallery-03.jpg" />
@@ -169,6 +220,7 @@
     <Content Include="Asset\images\gallery-07.jpg" />
     <Content Include="Asset\images\gallery-08.jpg" />
     <Content Include="Asset\images\gallery-09.jpg" />
+    <Content Include="Asset\images\Garçons_Play.jpg" />
     <Content Include="Asset\images\icons\favicon.png" />
     <Content Include="Asset\images\icons\icon-close.png" />
     <Content Include="Asset\images\icons\icon-close2.png" />
@@ -301,6 +353,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\CozaStore.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CozaStore.Context.cs</LastGenOutput>
+      <DependentUpon>CozaStore.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\CozaStore.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CozaStore.edmx</DependentUpon>
+      <LastGenOutput>CozaStore.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Asset\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
@@ -402,6 +464,13 @@
     <Content Include="Asset\vendor\slick\slick-theme.scss" />
     <Content Include="Asset\vendor\slick\slick.less" />
     <Content Include="Asset\vendor\slick\slick.scss" />
+    <EntityDeploy Include="Models\CozaStore.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CozaStore.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CozaStore.edmx.diagram">
+      <DependentUpon>CozaStore.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -427,10 +496,14 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutCozaStore.cshtml" />
+    <Content Include="Views\CozaHome\Index.cshtml" />
+    <Content Include="Views\CozaHome\TypeShose.cshtml" />
+    <Content Include="Views\CozaHome\Banner.cshtml" />
+    <Content Include="Views\CozaHome\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -444,6 +517,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
