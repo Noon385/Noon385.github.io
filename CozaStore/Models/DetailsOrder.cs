@@ -16,11 +16,14 @@ namespace CozaStore.Models
     {
         public int Productid { get; set; }
         public int Orderid { get; set; }
-        public string Size { get; set; }
+        public Nullable<int> Sizeid { get; set; }
+        public Nullable<int> Colorid { get; set; }
         public Nullable<int> Amount { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
     
+        public virtual Color Color { get; set; }
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Size Size { get; set; }
     }
 }

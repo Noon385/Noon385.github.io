@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_LayoutCozaStore.cshtml";
+}
+@using CozaStore.Models
+@model List<Cart>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-xl-10 m-lr-auto m-b-50">
+                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                    <div class="wrap-table-shopping-cart">
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th class="column-1">Product</th>
+                                <th class="column-2"></th>
+                                <th class="column-3">Price</th>
+                                <th class="column-5">Quantity</th>
+                                <th class="column-5">Total</th>
+                                <th class="column-5">Action</th>
+                            </tr>
+                            @foreach(var item in Model)
+                            {
+                            <tr class="table_row">
+                                <td class="column-1">
+
+                                    <a href="@Url.Action("DeleteProduct","Cart", new { productid = item.Productid })">
+                                        <div class="how-itemcart1">
+                                            <img src="~/Asset/images/@item.ProductImage" alt="IMG">
+                                        </div>
+
+                                    </a>
+
+                                </td>
+                                <td class="column-2">
+                                    <a href="@Url.Action("ProductDetails","CozaHome", new { productid = item.Productid })" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        @item.ProductName
+                                    </a>
+
+                                </td>
+
+                                <td class="column-3">$ @Html.FormatValue(@item.ProductPrice, "{0:#,#0}")</td>
+                                @using (Html.BeginForm("UpdateCart", "cart", new { productid = item.Productid }))
+                                {
+                                    <td class="column-3">
+                                        <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                            <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-minus"></i>
+                                            </div>
+
+                                            <input class="mtext-104 cl3 txt-center num-product" type="number" name="txtNumberProduct" value="@item.ProductNumber">
+
+                                            <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-plus"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="column-5">$ @Html.FormatValue(@item.TotalProductPrice, "{0:#,#0}")</td>
+                                    <td>
+                                        <input type="submit" value="Update" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"/>
+                                    </td>
+                                }
+
+                            </tr>
+                            }
+                            
+                        </table>
+                    </div>
+
+                    <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+                        <div class="flex-w flex-m m-r-20 m-tb-5">
+                           
+                        </div>
+
+                        <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+                            Shopping Cart
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

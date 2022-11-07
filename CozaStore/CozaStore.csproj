@@ -128,8 +128,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CozaHomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -139,7 +141,11 @@
     <Compile Include="Models\Banner.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Color.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CozaStore.Context.cs">
@@ -164,6 +170,9 @@
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Size.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
@@ -501,6 +510,8 @@
     <Content Include="Views\CozaHome\TypeShose.cshtml" />
     <Content Include="Views\CozaHome\Banner.cshtml" />
     <Content Include="Views\CozaHome\ProductDetails.cshtml" />
+    <Content Include="Views\Shop\Shop.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

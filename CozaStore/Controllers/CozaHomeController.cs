@@ -25,6 +25,16 @@ namespace CozaStore.Controllers
         {
             return PartialView();
         }
+        List<Size> FullSize()
+        {
+            List<Size> Size = db.Size.ToList();
+            return Size;
+        }
+        List<Color> FullColor()
+        {
+            List<Color> Color = db.Color.ToList();
+            return Color;
+        }
 
         public ActionResult ProductDetails(int? productid)
         {
@@ -33,6 +43,8 @@ namespace CozaStore.Controllers
             {
                 return RedirectToAction("Index");
             }
+            ViewBag.Size = FullSize();
+            ViewBag.Color = FullColor();
             return View(product);
         }
     }

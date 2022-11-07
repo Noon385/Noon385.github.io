@@ -12,21 +12,17 @@ namespace CozaStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class Size
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Order()
+        public Size()
         {
             this.DetailsOrder = new HashSet<DetailsOrder>();
         }
     
-        public int Orderid { get; set; }
-        public Nullable<int> Userid { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
-        public Nullable<int> Status { get; set; }
-        public Nullable<System.DateTime> OrderDay { get; set; }
+        public int Sizeid { get; set; }
+        public string NameSize { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailsOrder> DetailsOrder { get; set; }
     }

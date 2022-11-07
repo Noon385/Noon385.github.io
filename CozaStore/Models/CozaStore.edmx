@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CozaStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CozaStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Adminid" />
@@ -34,6 +34,13 @@
           <Property Name="Categoryid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="Colorid" />
+          </Key>
+          <Property Name="Colorid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="DetailsOrder">
           <Key>
             <PropertyRef Name="Productid" />
@@ -41,7 +48,8 @@
           </Key>
           <Property Name="Productid" Type="int" Nullable="false" />
           <Property Name="Orderid" Type="int" Nullable="false" />
-          <Property Name="Size" Type="char" MaxLength="1" />
+          <Property Name="Sizeid" Type="int" />
+          <Property Name="Colorid" Type="int" />
           <Property Name="Amount" Type="int" />
           <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
@@ -66,6 +74,13 @@
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Amount" Type="int" />
           <Property Name="Categoryid" Type="int" />
+        </EntityType>
+        <EntityType Name="Size">
+          <Key>
+            <PropertyRef Name="Sizeid" />
+          </Key>
+          <Property Name="Sizeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameSize" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -102,6 +117,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DetailsOrder_Color">
+          <End Role="Color" Type="Self.Color" Multiplicity="0..1" />
+          <End Role="DetailsOrder" Type="Self.DetailsOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="Colorid" />
+            </Principal>
+            <Dependent Role="DetailsOrder">
+              <PropertyRef Name="Colorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DetailsOrder_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="DetailsOrder" Type="Self.DetailsOrder" Multiplicity="*" />
@@ -123,6 +150,18 @@
             </Principal>
             <Dependent Role="DetailsOrder">
               <PropertyRef Name="Productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailsOrder_Size">
+          <End Role="Size" Type="Self.Size" Multiplicity="0..1" />
+          <End Role="DetailsOrder" Type="Self.DetailsOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Size">
+              <PropertyRef Name="Sizeid" />
+            </Principal>
+            <Dependent Role="DetailsOrder">
+              <PropertyRef Name="Sizeid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -154,14 +193,20 @@
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Color" EntityType="Self.Color" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailsOrder" EntityType="Self.DetailsOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Size" EntityType="Self.Size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Banner_Product" Association="Self.FK_Banner_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Banner" EntitySet="Banner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailsOrder_Color" Association="Self.FK_DetailsOrder_Color">
+            <End Role="Color" EntitySet="Color" />
+            <End Role="DetailsOrder" EntitySet="DetailsOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_DetailsOrder_Order" Association="Self.FK_DetailsOrder_Order">
             <End Role="Order" EntitySet="Order" />
@@ -169,6 +214,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_DetailsOrder_Product" Association="Self.FK_DetailsOrder_Product">
             <End Role="Product" EntitySet="Product" />
+            <End Role="DetailsOrder" EntitySet="DetailsOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailsOrder_Size" Association="Self.FK_DetailsOrder_Size">
+            <End Role="Size" EntitySet="Size" />
             <End Role="DetailsOrder" EntitySet="DetailsOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
@@ -180,8 +229,7 @@
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CozaStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -216,19 +264,6 @@
           <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
         </EntityType>
-        <EntityType Name="DetailsOrder">
-          <Key>
-            <PropertyRef Name="Productid" />
-            <PropertyRef Name="Orderid" />
-          </Key>
-          <Property Name="Productid" Type="Int32" Nullable="false" />
-          <Property Name="Orderid" Type="Int32" Nullable="false" />
-          <Property Name="Size" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="Amount" Type="Int32" />
-          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_DetailsOrder_Order" FromRole="DetailsOrder" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_DetailsOrder_Product" FromRole="DetailsOrder" ToRole="Product" />
-        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Orderid" />
@@ -238,8 +273,8 @@
           <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="Int32" />
           <Property Name="OrderDay" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="DetailsOrder" Relationship="Self.FK_DetailsOrder_Order" FromRole="Order" ToRole="DetailsOrder" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="DetailsOrder" Relationship="CozaStoreModel.FK_DetailsOrder_Order" FromRole="Order" ToRole="DetailsOrder" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -254,7 +289,7 @@
           <Property Name="Categoryid" Type="Int32" />
           <NavigationProperty Name="Banner" Relationship="Self.FK_Banner_Product" FromRole="Product" ToRole="Banner" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="DetailsOrder" Relationship="Self.FK_DetailsOrder_Product" FromRole="Product" ToRole="DetailsOrder" />
+          <NavigationProperty Name="DetailsOrder" Relationship="CozaStoreModel.FK_DetailsOrder_Product" FromRole="Product" ToRole="DetailsOrder" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -304,30 +339,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DetailsOrder_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="DetailsOrder" Type="Self.DetailsOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Orderid" />
-            </Principal>
-            <Dependent Role="DetailsOrder">
-              <PropertyRef Name="Orderid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DetailsOrder_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="DetailsOrder" Type="Self.DetailsOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Productid" />
-            </Principal>
-            <Dependent Role="DetailsOrder">
-              <PropertyRef Name="Productid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Order_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -344,7 +355,6 @@
           <EntitySet Name="Admin" EntityType="Self.Admin" />
           <EntitySet Name="Banner" EntityType="Self.Banner" />
           <EntitySet Name="Category" EntityType="Self.Category" />
-          <EntitySet Name="DetailsOrder" EntityType="Self.DetailsOrder" />
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -357,20 +367,111 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK_DetailsOrder_Order" Association="Self.FK_DetailsOrder_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="DetailsOrder" EntitySet="DetailsOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DetailsOrder_Product" Association="Self.FK_DetailsOrder_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="DetailsOrder" EntitySet="DetailsOrder" />
-          </AssociationSet>
           <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="Color" EntityType="CozaStoreModel.Color" />
+          <EntitySet Name="Size" EntityType="CozaStoreModel.Size" />
+          <EntitySet Name="DetailsOrder" EntityType="CozaStoreModel.DetailsOrder" />
+          <AssociationSet Name="FK_DetailsOrder_Color" Association="CozaStoreModel.FK_DetailsOrder_Color">
+            <End Role="Color" EntitySet="Color" />
+            <End Role="DetailsOrder" EntitySet="DetailsOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailsOrder_Order" Association="CozaStoreModel.FK_DetailsOrder_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="DetailsOrder" EntitySet="DetailsOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailsOrder_Product" Association="CozaStoreModel.FK_DetailsOrder_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="DetailsOrder" EntitySet="DetailsOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailsOrder_Size" Association="CozaStoreModel.FK_DetailsOrder_Size">
+            <End Role="Size" EntitySet="Size" />
+            <End Role="DetailsOrder" EntitySet="DetailsOrder" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="Colorid" />
+          </Key>
+          <Property Name="Colorid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColorName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DetailsOrder" Relationship="CozaStoreModel.FK_DetailsOrder_Color" FromRole="Color" ToRole="DetailsOrder" />
+        </EntityType>
+        <EntityType Name="Size">
+          <Key>
+            <PropertyRef Name="Sizeid" />
+          </Key>
+          <Property Name="Sizeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameSize" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DetailsOrder" Relationship="CozaStoreModel.FK_DetailsOrder_Size" FromRole="Size" ToRole="DetailsOrder" />
+        </EntityType>
+        <EntityType Name="DetailsOrder">
+          <Key>
+            <PropertyRef Name="Productid" />
+            <PropertyRef Name="Orderid" />
+          </Key>
+          <Property Name="Productid" Type="Int32" Nullable="false" />
+          <Property Name="Orderid" Type="Int32" Nullable="false" />
+          <Property Name="Sizeid" Type="Int32" />
+          <Property Name="Colorid" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Color" Relationship="CozaStoreModel.FK_DetailsOrder_Color" FromRole="DetailsOrder" ToRole="Color" />
+          <NavigationProperty Name="Order" Relationship="CozaStoreModel.FK_DetailsOrder_Order" FromRole="DetailsOrder" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="CozaStoreModel.FK_DetailsOrder_Product" FromRole="DetailsOrder" ToRole="Product" />
+          <NavigationProperty Name="Size" Relationship="CozaStoreModel.FK_DetailsOrder_Size" FromRole="DetailsOrder" ToRole="Size" />
+        </EntityType>
+        <Association Name="FK_DetailsOrder_Color">
+          <End Type="CozaStoreModel.Color" Role="Color" Multiplicity="0..1" />
+          <End Type="CozaStoreModel.DetailsOrder" Role="DetailsOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="Colorid" />
+            </Principal>
+            <Dependent Role="DetailsOrder">
+              <PropertyRef Name="Colorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailsOrder_Order">
+          <End Type="CozaStoreModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="CozaStoreModel.DetailsOrder" Role="DetailsOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Orderid" />
+            </Principal>
+            <Dependent Role="DetailsOrder">
+              <PropertyRef Name="Orderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailsOrder_Product">
+          <End Type="CozaStoreModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="CozaStoreModel.DetailsOrder" Role="DetailsOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Productid" />
+            </Principal>
+            <Dependent Role="DetailsOrder">
+              <PropertyRef Name="Productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailsOrder_Size">
+          <End Type="CozaStoreModel.Size" Role="Size" Multiplicity="0..1" />
+          <End Type="CozaStoreModel.DetailsOrder" Role="DetailsOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Size">
+              <PropertyRef Name="Sizeid" />
+            </Principal>
+            <Dependent Role="DetailsOrder">
+              <PropertyRef Name="Sizeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -405,17 +506,6 @@
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="Categoryid" ColumnName="Categoryid" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DetailsOrder">
-            <EntityTypeMapping TypeName="CozaStoreModel.DetailsOrder">
-              <MappingFragment StoreEntitySet="DetailsOrder">
-                <ScalarProperty Name="Productid" ColumnName="Productid" />
-                <ScalarProperty Name="Orderid" ColumnName="Orderid" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -465,6 +555,34 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Color">
+            <EntityTypeMapping TypeName="CozaStoreModel.Color">
+              <MappingFragment StoreEntitySet="Color">
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="Colorid" ColumnName="Colorid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Size">
+            <EntityTypeMapping TypeName="CozaStoreModel.Size">
+              <MappingFragment StoreEntitySet="Size">
+                <ScalarProperty Name="NameSize" ColumnName="NameSize" />
+                <ScalarProperty Name="Sizeid" ColumnName="Sizeid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailsOrder">
+            <EntityTypeMapping TypeName="CozaStoreModel.DetailsOrder">
+              <MappingFragment StoreEntitySet="DetailsOrder">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Colorid" ColumnName="Colorid" />
+                <ScalarProperty Name="Sizeid" ColumnName="Sizeid" />
+                <ScalarProperty Name="Orderid" ColumnName="Orderid" />
+                <ScalarProperty Name="Productid" ColumnName="Productid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
