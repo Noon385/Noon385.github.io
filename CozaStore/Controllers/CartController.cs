@@ -60,6 +60,15 @@ namespace CozaStore.Controllers
             }
             return TotalPrice;
         }
+        List<Color> FullColor()
+        {
+            return db.Color.ToList();
+        }
+         List<Size> FullSize()
+        {
+            return db.Size.ToList();
+        }
+
         public ActionResult Cart()
         {
             List<Cart> lstCart = GetCart();
@@ -69,6 +78,8 @@ namespace CozaStore.Controllers
             }
             ViewBag.Number = TotalNumberProduct();
             ViewBag.TotalPrice = TotalPrice();
+            ViewBag.Size = FullSize();
+            ViewBag.Color = FullColor();
             return View(lstCart);
         }
 
@@ -85,6 +96,30 @@ namespace CozaStore.Controllers
                 }
             }
             return RedirectToAction("Cart");
+        }
+
+        public ActionResult UpdateCart(int productid, FormCollection f)
+        {
+            List<Cart> lstcart = GetCart();
+            if(lstcart == null)
+            {
+                return RedirectToAction("Cart", "Cart");
+            }
+            Cart product = lstcart.SingleOrDefault(n => n.Productid == productid);
+            if(product == null)
+            {
+                return RedirectToAction("Cart", "Cart");
+            }
+            int num = int.Parse(f["num-product"]);
+            product.ProductNumber = num;
+            return RedirectToAction("Cart", "Cart");
+        }
+        public ActionResult ClearCart()
+        {
+            List<Cart> lstCart = GetCart();
+            lstCart.Clear();
+            return RedirectToAction("Index", "CozaHome");
+
         }
     }
 }
