@@ -1,5 +1,8 @@
-﻿<!DOCTYPE html>
-
+﻿@using CozaStore.Models
+@{
+    User user = Session["User"] as User;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -82,6 +85,7 @@
                         <ul class="main-menu">
                             <li class="active-menu">
                                 <a href="@Url.Action("Index","CozaHome")">Home</a>
+                                
                             </li>
 
                             <li>
@@ -105,14 +109,23 @@
                             <i class="zmdi zmdi-search"></i>
                         </div>
 
-                        <a href="@Url.Action("Cart","Cart")" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
-                            <i class="zmdi zmdi-shopping-cart"></i>
-                        </a>
+                       @Html.Action("ViewCard", "Cart");
 
-                        <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                            
-                            <i class="zmdi zmdi-account"></i>
-                        </a>
+                        @if (Session["User"] == null)
+                        {
+                            <a href="@Url.Action("Login","Login")" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+
+                                <i class="zmdi zmdi-account"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <div style="margin-left: 30px">
+                                <p>
+                                    @user.FullName
+                                </p>
+                            </div>
+                        }
                     </div>
                 </nav>
             </div>

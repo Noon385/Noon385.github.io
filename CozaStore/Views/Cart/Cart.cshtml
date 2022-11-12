@@ -29,10 +29,9 @@
                                     <td class="column-1">
 
                                         <a href="@Url.Action("DeleteProduct","Cart", new { productid = item.Productid })">
-                                            <div class="how-itemcart1">
+                                            <div class="how-itemcart1" >
                                                 <img src="~/Asset/images/@item.ProductImage" alt="IMG">
                                             </div>
-
                                         </a>
 
                                     </td>
@@ -77,7 +76,7 @@
                                                     <i class="fs-16 zmdi zmdi-minus"></i>
                                                 </div>
 
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="@item.ProductNumber">
+                                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product"  value="@item.ProductNumber">
 
                                                 <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                     <i class="fs-16 zmdi zmdi-plus"></i>
@@ -124,9 +123,9 @@
                         </div>
 
                         <div >
-                            <a href="#" 
+                            <a href="@Url.Action("ShoppingCard","Cart")" 
                                class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                            Shopping Cart
+                                Shopping Cart
                             </a>
                         </div>
                     </div>

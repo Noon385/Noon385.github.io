@@ -121,5 +121,24 @@ namespace CozaStore.Controllers
             return RedirectToAction("Index", "CozaHome");
 
         }
+        [ChildActionOnly]
+        public ActionResult ViewCard()
+        {
+            ViewBag.Number = TotalNumberProduct();
+            return PartialView();
+        }
+        public ActionResult ShoppingCard()
+        {
+            if(Session["User"] == null)
+            {
+                return RedirectToAction("Login","Login");
+            }
+            List<Cart> lstcart = GetCart(); 
+            ViewBag.Number = TotalNumberProduct();
+            ViewBag.TotalPrice = TotalPrice();
+            ViewBag.Size = FullSize();
+            ViewBag.Color = FullColor();
+            return View(lstcart);
+        }
     }
 }

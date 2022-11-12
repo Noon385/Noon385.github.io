@@ -33,6 +33,7 @@
           </Key>
           <Property Name="Categoryid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Style" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Color">
           <Key>
@@ -256,14 +257,6 @@
           <Property Name="Contentlow" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Banner_Product" FromRole="Banner" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="Categoryid" />
-          </Key>
-          <Property Name="Categoryid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
-        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Orderid" />
@@ -288,8 +281,8 @@
           <Property Name="Amount" Type="Int32" />
           <Property Name="Categoryid" Type="Int32" />
           <NavigationProperty Name="Banner" Relationship="Self.FK_Banner_Product" FromRole="Product" ToRole="Banner" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="DetailsOrder" Relationship="CozaStoreModel.FK_DetailsOrder_Product" FromRole="Product" ToRole="DetailsOrder" />
+          <NavigationProperty Name="Category" Relationship="CozaStoreModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -327,18 +320,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Product_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="Categoryid" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="Categoryid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Order_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -354,7 +335,6 @@
         <EntityContainer Name="CozaStoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admin" EntityType="Self.Admin" />
           <EntitySet Name="Banner" EntityType="Self.Banner" />
-          <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -362,10 +342,6 @@
           <AssociationSet Name="FK_Banner_Product" Association="Self.FK_Banner_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Banner" EntitySet="Banner" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
             <End Role="User" EntitySet="User" />
@@ -389,6 +365,11 @@
           <AssociationSet Name="FK_DetailsOrder_Size" Association="CozaStoreModel.FK_DetailsOrder_Size">
             <End Role="Size" EntitySet="Size" />
             <End Role="DetailsOrder" EntitySet="DetailsOrder" />
+          </AssociationSet>
+          <EntitySet Name="Category" EntityType="CozaStoreModel.Category" />
+          <AssociationSet Name="FK_Product_Category" Association="CozaStoreModel.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Color">
@@ -471,6 +452,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Categoryid" />
+          </Key>
+          <Property Name="Categoryid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Style" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="CozaStoreModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Type="CozaStoreModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="CozaStoreModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Categoryid" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -498,14 +500,6 @@
                 <ScalarProperty Name="Productid" ColumnName="Productid" />
                 <ScalarProperty Name="ContentHigh" ColumnName="ContentHigh" />
                 <ScalarProperty Name="Contentlow" ColumnName="Contentlow" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Category">
-            <EntityTypeMapping TypeName="CozaStoreModel.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="Categoryid" ColumnName="Categoryid" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -583,6 +577,15 @@
                 <ScalarProperty Name="Sizeid" ColumnName="Sizeid" />
                 <ScalarProperty Name="Orderid" ColumnName="Orderid" />
                 <ScalarProperty Name="Productid" ColumnName="Productid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="CozaStoreModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Style" ColumnName="Style" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Categoryid" ColumnName="Categoryid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
