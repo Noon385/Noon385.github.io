@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CozaStore.Models;
-
+using System.IO;
 namespace CozaStore.Areas.Dashboard.Controllers
 {
     public class ProductsController : Controller
@@ -48,15 +48,30 @@ namespace CozaStore.Areas.Dashboard.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Productid,Name,Describe,Illsutration,Price,Amount,Categoryid")] Product product)
+        public ActionResult Create(Product product, FormCollection f, HttpPostedFileBase fFileUpload)
         {
-            if (ModelState.IsValid)
+            if(fFileUpload != null)
             {
-                db.Product.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    product.Name = f["ProductName"];
+                    product.Describe = string.Format(f["Describe"].ToString());
+                    product.Price = decimal.Parse(f["Price"].ToString());
+                    product.Amount = int.Parse(f["Amount"].ToString());
+                    product.Categoryid = int.Parse(f["Categoryid"].ToString());
+                    var FileName = Path.GetFileName(fFileUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Asset/images"), FileName);
+                    product.Illsutration = FileName;
+                    if (!System.IO.File.Exists(path))
+                    {
+                        fFileUpload.SaveAs(path);
+                    }
+                    db.Product.Add(product);
+                    db.SaveChanges();
+                    @TempData["MessageAlert"] = "Create product " + product.Name;
+                    return RedirectToAction("Index");
+                }
             }
-
             ViewBag.Categoryid = new SelectList(db.Category, "Categoryid", "Name", product.Categoryid);
             return View(product);
         }
@@ -82,39 +97,40 @@ namespace CozaStore.Areas.Dashboard.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Productid,Name,Describe,Illsutration,Price,Amount,Categoryid")] Product product)
+       [ValidateInput(false)]
+        public ActionResult Edit(int id, HttpPostedFileBase fFileUpload, FormCollection f)
         {
+            Product product = db.Product.SingleOrDefault(n => n.Productid == id);
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+               if(fFileUpload != null)
+                {
+                    var FileName = Path.GetFileName(fFileUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Asset/images"), FileName);
+                    if (!System.IO.File.Exists(path))
+                    {
+                        fFileUpload.SaveAs(path);
+                    }
+                    product.Illsutration = FileName;
+                }
+                product.Name = f["Name"];
+                product.Describe = f["Describe"];
+                product.Price = decimal.Parse(f["Price"].ToString());
+                product.Amount = int.Parse(f["Amount"].ToString());
+                product.Categoryid = int.Parse(f["Categoryid"].ToString());
+                @TempData["MessageAlert"] = "Edit product " + product.Name; 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.Categoryid = new SelectList(db.Category, "Categoryid", "Name", product.Categoryid);
             return View(product);
         }
-
-        // GET: Dashboard/Products/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Product.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
-
         // POST: Dashboard/Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+
+        public ActionResult Delete(int id)
         {
             Product product = db.Product.Find(id);
+            @TempData["MessageAlert"] = "Delete product" + product.Name;
             db.Product.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");

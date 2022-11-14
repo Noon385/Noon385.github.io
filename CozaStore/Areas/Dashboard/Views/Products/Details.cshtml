@@ -5,14 +5,12 @@
     Layout = "~/Areas/Dashboard/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Product</h4>
+<div class="container card ">
+    <h3 class="mt-3">Product Details</h3>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal" style="font-size: 20px">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Name):
         </dt>
 
         <dd>
@@ -20,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Describe)
+            @Html.DisplayNameFor(model => model.Describe):
         </dt>
 
         <dd>
@@ -28,15 +26,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Illsutration)
+            @Html.DisplayNameFor(model => model.Illsutration):
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Illsutration)
+
+            <img src="~/Asset/images/@Model.Illsutration" width="200" alt="@Model.Name" />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Price):
         </dt>
 
         <dd>
@@ -44,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Amount)
+            @Html.DisplayNameFor(model => model.Amount):
         </dt>
 
         <dd>
@@ -52,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
+            @Html.DisplayNameFor(model => model.Category.Name):
         </dt>
 
         <dd>
@@ -60,8 +59,9 @@
         </dd>
 
     </dl>
+    <p>
+        <a class="btn btn-warning" href="@Url.Action("Edit",new {id = Model.Productid})">Edit</a> |
+        <a class="btn btn-primary" href="@Url.Action("Index")">Back to List</a>
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Productid }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

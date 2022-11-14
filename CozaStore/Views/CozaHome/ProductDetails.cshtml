@@ -160,7 +160,8 @@
                     <div class="tab-pane fade show active" id="description" role="tabpanel">
                         <div class="how-pos2 p-lr-15-md">
                             <p class="stext-102 cl6">
-                                @Model.Describe
+                         
+                                @Html.Raw(@Model.Describe.ToString().Replace("\n", "</p><p>&nbsp&nbsp&nbsp&nbsp&nbsp"))
                             </p>
                         </div>
                     </div>
