@@ -1,16 +1,4 @@
-﻿@*<!DOCTYPE html>
-
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>@ViewBag.Title</title>
-    </head>
-    <body>
-        <div>
-            @RenderBody()
-        </div>
-    </body>
-    </html>*@
+﻿
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="~/AssetAdmin/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Asset/images/icons/favicon.png">
     <!-- This page CSS -->
     <!-- chartist CSS -->
     <link href="~/AssetAdmin/node_modules/morrisjs/morris.css" rel="stylesheet">
@@ -126,29 +114,35 @@
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" 
+                            <a class="waves-effect waves-dark"
                                href="@Url.Action("Index","Products")" aria-expanded="false">
-                                <i class="fa fa-shopping-cart"></i><span class="hide-menu">Product</span>
+                                <i class="fa fa-shopping-cart"></i><span class="hide-menu">Products</span>
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false">
-                                <i class="fa fa-table"></i><span class="hide-menu"></span>Tables
+                            <a class="waves-effect waves-dark"
+                               href="@Url.Action("Index","Users")" aria-expanded="false">
+                                <i class="fa fa-user"></i><span class="hide-menu">Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Categories")" aria-expanded="false">
+                                <i class="fa fa-table"></i><span class="hide-menu"></span>Category
                             </a>
                         </li>
                         <li>
                             <a class="waves-effect waves-dark" href="icon-fontawesome.html" aria-expanded="false">
-                                <i class="fa fa-smile-o"></i><span class="hide-menu"></span>Icon
+                                <i class="fa fa-image"></i><span class="hide-menu"></span>Banner
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false">
-                                <i class="fa fa-globe"></i><span class="hide-menu"></span>Map
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Sizes")" aria-expanded="false">
+                                <i class="fa fa-scribd"></i><span class="hide-menu"></span>Sizes
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false">
-                                <i class="fa fa-bookmark-o"></i><span class="hide-menu"></span>Blank
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Colors")" aria-expanded="false">
+                                <i class="fa fa-pencil-square"></i><span class="hide-menu"></span>Colors
                             </a>
                         </li>
                         <li>
@@ -156,7 +150,7 @@
                                 <i class="fa fa-question-circle"></i><span class="hide-menu"></span>404
                             </a>
                         </li>
-                        
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

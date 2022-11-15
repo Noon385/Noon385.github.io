@@ -1,0 +1,129 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using CozaStore.Models;
+
+namespace CozaStore.Areas.Dashboard.Controllers
+{
+    public class UsersController : Controller
+    {
+        private CozaStoreEntities db = new CozaStoreEntities();
+
+        // GET: Dashboard/Users
+        public ActionResult Index()
+        {
+            return View(db.User.ToList());
+        }
+
+        // GET: Dashboard/Users/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.User.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // GET: Dashboard/Users/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Dashboard/Users/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Userid,FullName,Gender,BirthDay,Gmail,Password,Phone,Address")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.User.Add(user);
+                db.SaveChanges();
+                TempData["AlertMessage"] = "New Users " + user.FullName;
+                return RedirectToAction("Index");
+            }
+
+            return View(user);
+        }
+
+        // GET: Dashboard/Users/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.User.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Dashboard/Users/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Userid,FullName,Gender,BirthDay,Gmail,Password,Phone,Address")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                TempData["AlertMessage"] = "Update Users " + user.FullName;
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            User user = db.User.Find(id);
+            var order = from c in db.Order
+                        where c.Userid == user.Userid
+                        select c;
+     
+                foreach (var item in order)
+                {
+                    var detailorder = from c in db.DetailsOrder
+                                      where c.Orderid == item.Orderid
+                                      select c;
+ 
+                        db.DetailsOrder.RemoveRange(detailorder);
+                        db.SaveChanges();
+                    
+
+                }
+                db.Order.RemoveRange(order);
+            
+            db.User.Remove(user);
+            db.SaveChanges();
+            TempData["AlertMessage"] = "Delete Users " + user.FullName;
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

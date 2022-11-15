@@ -130,7 +130,15 @@ namespace CozaStore.Areas.Dashboard.Controllers
         public ActionResult Delete(int id)
         {
             Product product = db.Product.Find(id);
-            @TempData["MessageAlert"] = "Delete product" + product.Name;
+            var banner = from c in db.Banner
+                         where c.Productid == id
+                         select c;
+            var OrderDetails = from c in db.DetailsOrder
+                               where c.Productid == id
+                               select c;
+            db.Banner.RemoveRange(banner);
+            db.DetailsOrder.RemoveRange(OrderDetails);
+            @TempData["MessageAlert"] = "Delete product " + product.Name;
             db.Product.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
