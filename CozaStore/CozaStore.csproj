@@ -129,11 +129,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Dashboard\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\BannersController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\ColorsController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\SizesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\UsersController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\Models\Rankproduct.cs" />
+    <Compile Include="Areas\Dashboard\Models\RankUser.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CozaHomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -188,6 +192,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1416,6 +1421,20 @@
     <Content Include="Areas\Dashboard\Views\Sizes\Details.cshtml" />
     <Content Include="Areas\Dashboard\Views\Sizes\Edit.cshtml" />
     <Content Include="Areas\Dashboard\Views\Sizes\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Colors\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Colors\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Colors\Details.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Colors\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Colors\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Banners\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Banners\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Banners\Details.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Banners\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Banners\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Admin\ViewTopProduct.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Admin\chart.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Admin\ViewRankUser.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Admin\Order.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1455,7 +1474,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Dashboard\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

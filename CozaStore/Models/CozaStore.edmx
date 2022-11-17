@@ -22,7 +22,7 @@
           <Key>
             <PropertyRef Name="Bannerid" />
           </Key>
-          <Property Name="Bannerid" Type="int" Nullable="false" />
+          <Property Name="Bannerid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Productid" Type="int" />
           <Property Name="ContentHigh" Type="nvarchar" MaxLength="150" />
           <Property Name="Contentlow" Type="nvarchar" MaxLength="150" />

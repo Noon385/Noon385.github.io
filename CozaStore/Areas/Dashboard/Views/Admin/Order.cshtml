@@ -1,0 +1,81 @@
+﻿@using CozaStore.Models
+@model List<UserOrder>
+@helper Truncate(string s, int length)
+{
+    if (s == null)
+    {
+        <text></text>
+    }
+    else if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>
+    }
+
+}
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex">
+                <div>
+                    <h5 class="card-title">Order Overview</h5>
+                    <h6 class="card-subtitle">Check the monthly sales </h6>
+                </div>
+                <div class="ml-auto">
+                    <select class="custom-select b-0">
+                        <option>January</option>
+                        <option value="1">February</option>
+                        <option value="2" selected="">March</option>
+                        <option value="3">April</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>NAME</th>
+                        <th>PHONE</th>
+                        <th>DATEORDER</th>
+                        <th>ADDRESS</th>
+                        <th>TOTAL</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int k = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @k
+                                @{
+                                    k++;
+                                }
+                            </td>
+                            <td class="txt-oflo">@item.user.FullName</td>
+                            <td class="txt-oflo">@item.user.Phone</td>
+                            <td class="txt-oflo">@Html.FormatValue(item.order.OrderDay, "{0:dd/MM/yyyy}")</td>
+                            <td>
+                                <span class="text-danger">
+                                    @Truncate(item.user.Address, 50)
+                                </span>
+                            </td>
+                            <td class="txt-oflo">
+                                $@Html.FormatValue(@item.order.TotalPrice,"{0:#,#0}")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

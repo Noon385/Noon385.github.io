@@ -45,12 +45,12 @@
                 <!-- ============================================================== -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
-                       <b>
+                        <b>
                             <img src="~/Asset/images/icons/logo-01.png" alt="homepage" class="dark-logo" />
                         </b>
-                      <span>
+                        <span>
                             <img src="~/AssetAdmin/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                       </span>
+                        </span>
                     </a>
                 </div>
                 <div class="navbar-collapse">
@@ -102,7 +102,7 @@
                     <i class="ti-menu ti-close"></i>
                 </a>
             </div>
-           
+
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
@@ -131,7 +131,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="icon-fontawesome.html" aria-expanded="false">
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Banners")" aria-expanded="false">
                                 <i class="fa fa-image"></i><span class="hide-menu"></span>Banner
                             </a>
                         </li>
@@ -159,8 +159,8 @@
         </aside>
 
         <div class="page-wrapper">
-           @RenderBody()
-           
+            @RenderBody()
+
         </div>
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
