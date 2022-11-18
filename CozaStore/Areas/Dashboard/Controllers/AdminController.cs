@@ -40,7 +40,7 @@ namespace CozaStore.Areas.Dashboard.Controllers
                 list.Add(tmp);
             }
              
-            return View(list);
+            return View(list.OrderByDescending(n=>n.numproduct).ToList());
         }
         [ChildActionOnly]
         public ActionResult chart()
@@ -73,19 +73,21 @@ namespace CozaStore.Areas.Dashboard.Controllers
                 });
                 sum += sumitem;
             }
-            return View(lstrank);
+            return View(lstrank.OrderByDescending(n => n.total).ToList());
         }
         [ChildActionOnly]
         public ActionResult Order()
         {
-            var lstorder = from c in db.Order
+            var lstorder = (from c in db.Order
                            join p in db.User
                            on c.Userid equals p.Userid
+                           
                            select new UserOrder
                            {
                                user = p,
                                order = c
-                           };
+                           }).OrderByDescending(n => n.order.OrderDay.Value.Year)
+                             .ThenByDescending(n => n.order.OrderDay.Value.Month); ;
             return View(lstorder.ToList());
         }
 
@@ -94,10 +96,36 @@ namespace CozaStore.Areas.Dashboard.Controllers
             var lstdetail = from c in db.DetailsOrder
                             join p in db.Product
                             on c.Productid equals p.Productid
+                            where c.Orderid == id
                             select new getproduct{ product = p,detailsOrder = c };
             ViewBag.user = db.User.Where(n => n.Userid == userid).SingleOrDefault();
             ViewBag.oder = db.Order.SingleOrDefault(n => n.Orderid == id);
             return View(lstdetail.ToList());
+        }
+
+        public ActionResult Accept(int id)
+        {
+            var order = db.Order.SingleOrDefault(n => n.Orderid == id);
+            order.Status = 1;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Cancel(int id)
+        {
+            var order = db.Order.SingleOrDefault(n => n.Orderid == id);
+            order.Status = 0;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult DeleteOrder(int id)
+        {
+            var order = db.Order.SingleOrDefault(n => n.Orderid == id);
+            var detailsorder = db.DetailsOrder.Where(n => n.Orderid == order.Orderid);
+            db.DetailsOrder.RemoveRange(detailsorder);
+            db.Order.Remove(order);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
     }
 }

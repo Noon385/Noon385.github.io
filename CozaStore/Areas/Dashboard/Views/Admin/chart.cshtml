@@ -2,14 +2,11 @@
 @model List<decimal?>
     @{ 
         List<decimal?> total = new List<decimal?>();
+ 
         foreach(var item in Model)
         {
-            if(item == null)
-            {
-                total.Add(0);
-                continue;
-            }
-            total.Add(item);
+            total.Add(0 + item);
+
         }
     }
 <style>
@@ -83,9 +80,9 @@
 
             yAxis: {
                 type: 'logarithmic',
-                minorTickInterval: 0.1,
+                minorTickInterval: 0.0,
                 accessibility: {
-                    rangeDescription: 'Range: 0.1 to 1000'
+                    rangeDescription: 'Range: 0 to 1000'
                 }
             },
 

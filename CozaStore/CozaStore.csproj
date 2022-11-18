@@ -132,6 +132,7 @@
     <Compile Include="Areas\Dashboard\Controllers\BannersController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\ColorsController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\LoginController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\SizesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\UsersController.cs" />
@@ -1440,6 +1441,7 @@
     <Content Include="Areas\Dashboard\Views\Admin\ViewRankUser.cshtml" />
     <Content Include="Areas\Dashboard\Views\Admin\Order.cshtml" />
     <Content Include="Areas\Dashboard\Views\Admin\DetailsOrder.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Login\Login.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

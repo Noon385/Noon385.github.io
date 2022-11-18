@@ -44,6 +44,7 @@
                         <th>DATEORDER</th>
                         <th>TOTAL</th>
                         <th>STATUS</th>
+                        <th>STATUSPAY</th>
                         <tH>ACTION</tH>
                     </tr>
                 </thead>
@@ -70,17 +71,26 @@
                             <td>
                                 @if (item.order.Status == 1)
                                 {
-                                <label class="label label-success">Already</label>
+                                <label class="label label-success">Accept</label>
                                 }
                                 else
                                 {
-                                <label class="label label-danger">NoAlready</label>
+                                <label class="label label-danger">Cancel</label>
+                                }
+                            </td>
+                            <td>
+                                @if (item.order.Statuspay == 1)
+                                {
+                                    <label class="label label-success">Pay</label>
+                                }
+                                else
+                                {
+                                    <label class="label label-danger">NoPay</label>
                                 }
                             </td>
                            <td>
                                <a href="@Url.Action("DetailsOrder","Admin",new { id = item.order.Orderid, userid = item.user.Userid  })" class="btn btn-primary">Details</a>
-                               <a href="#" class="btn btn-warning">Edit</a>
-                               <a href="#" class="btn btn-danger">Delete</a>
+                               <a onclick="return confirm('Are sure wants to delete?');" href="@Url.Action("DeleteOrder","Admin",new { id = item.order.Orderid  })" class="btn btn-danger">Delete</a>
                            </td>
                         </tr>
                     }
