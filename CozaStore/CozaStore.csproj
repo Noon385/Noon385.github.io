@@ -140,7 +140,6 @@
     <Compile Include="Areas\Dashboard\Models\RankUser.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CozaHomeController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
@@ -177,9 +176,11 @@
     <Compile Include="Models\DetailsOrder.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\getproduct.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\product-banner.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
@@ -193,6 +194,9 @@
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserOrder.cs" />
+    <Compile Include="Others\PayCompare.cs" />
+    <Compile Include="Others\PayLib.cs" />
+    <Compile Include="Others\Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1435,6 +1439,7 @@
     <Content Include="Areas\Dashboard\Views\Admin\chart.cshtml" />
     <Content Include="Areas\Dashboard\Views\Admin\ViewRankUser.cshtml" />
     <Content Include="Areas\Dashboard\Views\Admin\Order.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Admin\DetailsOrder.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1456,10 +1461,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutCozaStore.cshtml" />
     <Content Include="Views\CozaHome\Index.cshtml" />
     <Content Include="Views\CozaHome\TypeShose.cshtml" />
@@ -1471,6 +1472,7 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Cart\ShoppingCard.cshtml" />
     <Content Include="Views\Cart\ViewCard.cshtml" />
+    <Content Include="Views\Cart\PaymentConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

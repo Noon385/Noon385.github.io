@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "DetailsOrder";
+    Layout = "~/Areas/Dashboard/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using CozaStore.Models
+@model List<getproduct>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Product</h4>
+                </div>
+                <ul class="feeds p-b-20">
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <div class="sl-left bg-info">
+                                <img src="~/Asset/images/@item.product.Illsutration" alt="Alternate Text" />
+                            </div>
+                            @item.product.Name
+                            <span class="text-muted">Just Now</span>
+                        </li>
+                    }
+                    <li class="sl-item">
+                        <div class="bg-info sl-item">
+                            <img src="~/Asset/images/CAMPUS_80S.jpg" width="50" alt="Alternate Text" />
+                        </div>
+                        vasssssss
+                        <span class="text-muted">
+                            
+                            <a href="#" class="btn btn-danger">Delete</a>
+                        </span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Messages (5 New)</h5>
+                    <div class="message-box">
+                        <div class="message-widget message-scroll">
+                            <!-- Message -->
+                            <a href="javascript:void(0)">
+                                <div class="user-img">
+                                    <img src="../assets/images/users/1.jpg" alt="user"
+                                         class="img-circle"> <span class="profile-status online pull-right"></span>
+                                </div>
+                                <div class="mail-contnet">
+                                    <h5>Pavan kumar</h5> <span class="mail-desc">
+                                        Lorem Ipsum is simply dummy
+                                        text of the printing and type setting industry. Lorem Ipsum has
+                                        been.
+                                    </span> <span class="time">9:30 AM</span>
+                                </div>
+                            </a>
+                            <!-- Message -->
+                            <a href="javascript:void(0)">
+                                <div class="user-img">
+                                    <img src="../assets/images/users/2.jpg" alt="user"
+                                         class="img-circle"> <span class="profile-status busy pull-right"></span>
+                                </div>
+                                <div class="mail-contnet">
+                                    <h5>Sonu Nigam</h5> <span class="mail-desc">
+                                        I've sung a song! See you
+                                        at
+                                    </span> <span class="time">9:10 AM</span>
+                                </div>
+                            </a>
+                            <!-- Message -->
+                            <a href="javascript:void(0)">
+                                <div class="user-img">
+                                    <span class="round">A</span> <span class="profile-status away pull-right"></span>
+                                </div>
+                                <div class="mail-contnet">
+                                    <h5>Arijit Sinh</h5> <span class="mail-desc">
+                                        Simply dummy text of the
+                                        printing and typesetting industry.
+                                    </span> <span class="time">
+                                        9:08
+                                        AM
+                                    </span>
+                                </div>
+                            </a>
+                            <!-- Message -->
+                            <a href="javascript:void(0)">
+                                <div class="user-img">
+                                    <img src="../assets/images/users/4.jpg" alt="user"
+                                         class="img-circle"> <span class="profile-status offline pull-right"></span>
+                                </div>
+                                <div class="mail-contnet">
+                                    <h5>Pavan kumar</h5> <span class="mail-desc">
+                                        Just see the my
+                                        admin!
+                                    </span> <span class="time">9:02 AM</span>
+                                </div>
+                            </a>
+                            <!-- Message -->
+                            <a href="javascript:void(0)">
+                                <div class="user-img">
+                                    <img src="../assets/images/users/1.jpg" alt="user"
+                                         class="img-circle"> <span class="profile-status online pull-right"></span>
+                                </div>
+                                <div class="mail-contnet">
+                                    <h5>Pavan kumar</h5> <span class="mail-desc">
+                                        Welcome to the Elite
+                                        Admin
+                                    </span> <span class="time">9:30 AM</span>
+                                </div>
+                            </a>
+                            <!-- Message -->
+                            <a href="javascript:void(0)">
+                                <div class="user-img">
+                                    <img src="../assets/images/users/2.jpg" alt="user"
+                                         class="img-circle"> <span class="profile-status busy pull-right"></span>
+                                </div>
+                                <div class="mail-contnet">
+                                    <h5>Sonu Nigam</h5> <span class="mail-desc">
+                                        I've sung a song! See you
+                                        at
+                                    </span> <span class="time">9:10 AM</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

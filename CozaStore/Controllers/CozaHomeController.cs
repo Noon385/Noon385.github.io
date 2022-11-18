@@ -23,7 +23,14 @@ namespace CozaStore.Controllers
         [ChildActionOnly]
         public ActionResult Banner()
         {
-            return PartialView();
+            var banner = db.Banner.Join(db.Product,
+                e => e.Productid,
+                p => p.Productid,
+                (e, p) => new product_banner {
+                    product = p,
+                    banner = e
+                });
+            return PartialView(banner.ToList());
         }
         List<Size> FullSize()
         {

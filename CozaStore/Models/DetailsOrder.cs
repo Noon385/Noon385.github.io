@@ -22,8 +22,8 @@ namespace CozaStore.Models
         public Nullable<decimal> TotalPrice { get; set; }
     
         public virtual Color Color { get; set; }
-        public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
         public virtual Size Size { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

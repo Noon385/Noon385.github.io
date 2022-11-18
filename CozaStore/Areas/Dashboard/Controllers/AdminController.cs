@@ -88,5 +88,16 @@ namespace CozaStore.Areas.Dashboard.Controllers
                            };
             return View(lstorder.ToList());
         }
+
+        public ActionResult DetailsOrder(int id, int userid)
+        {
+            var lstdetail = from c in db.DetailsOrder
+                            join p in db.Product
+                            on c.Productid equals p.Productid
+                            select new getproduct{ product = p,detailsOrder = c };
+            ViewBag.user = db.User.Where(n => n.Userid == userid).SingleOrDefault();
+            ViewBag.oder = db.Order.SingleOrDefault(n => n.Orderid == id);
+            return View(lstdetail.ToList());
+        }
     }
 }

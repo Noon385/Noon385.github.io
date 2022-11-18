@@ -21,13 +21,15 @@ namespace CozaStore.Models
         }
     
         public int Orderid { get; set; }
+        public string Ordercode { get; set; }
         public Nullable<int> Userid { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
+        public Nullable<int> Statuspay { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> OrderDay { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailsOrder> DetailsOrder { get; set; }
+        public virtual User User { get; set; }
     }
 }

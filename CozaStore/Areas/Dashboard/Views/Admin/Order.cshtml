@@ -41,11 +41,10 @@
                     <tr>
                         <th class="text-center">#</th>
                         <th>NAME</th>
-                        <th>PHONE</th>
                         <th>DATEORDER</th>
-                        <th>ADDRESS</th>
                         <th>TOTAL</th>
-
+                        <th>STATUS</th>
+                        <tH>ACTION</tH>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,16 +61,27 @@
                                 }
                             </td>
                             <td class="txt-oflo">@item.user.FullName</td>
-                            <td class="txt-oflo">@item.user.Phone</td>
                             <td class="txt-oflo">@Html.FormatValue(item.order.OrderDay, "{0:dd/MM/yyyy}")</td>
                             <td>
                                 <span class="text-danger">
-                                    @Truncate(item.user.Address, 50)
+                                    $@Html.FormatValue(@item.order.TotalPrice, "{0:#,#0}")
                                 </span>
                             </td>
-                            <td class="txt-oflo">
-                                $@Html.FormatValue(@item.order.TotalPrice,"{0:#,#0}")
+                            <td>
+                                @if (item.order.Status == 1)
+                                {
+                                <label class="label label-success">Already</label>
+                                }
+                                else
+                                {
+                                <label class="label label-danger">NoAlready</label>
+                                }
                             </td>
+                           <td>
+                               <a href="@Url.Action("DetailsOrder","Admin",new { id = item.order.Orderid, userid = item.user.Userid  })" class="btn btn-primary">Details</a>
+                               <a href="#" class="btn btn-warning">Edit</a>
+                               <a href="#" class="btn btn-danger">Delete</a>
+                           </td>
                         </tr>
                     }
                 </tbody>

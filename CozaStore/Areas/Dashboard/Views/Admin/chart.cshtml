@@ -66,8 +66,9 @@
 
 </figure>
     <script>
+        let dataI = @Html.Raw(Json.Encode(total))
         Highcharts.chart('container', {
-
+            
             title: {
                 text: 'Coza Shop'
             },
@@ -93,21 +94,8 @@
                 pointFormat: 'x = {point.x}, y = {point.y}'
             },
 
-            series: [{
-                data: [
-                    @total[0],
-                    @total[1],
-                    @total[2],
-                    @total[3],
-                    @total[4],
-                    @total[5],
-                    @total[6],
-                    @total[7],
-                    @total[8],
-                    @total[9],
-                    @total[10],
-                    @total[11]
-                ],
+                series: [{
+                    data: dataI,
                 pointStart: 1
             }]
         });

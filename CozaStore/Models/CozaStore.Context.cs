@@ -27,7 +27,6 @@ namespace CozaStore.Models
     
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Banner> Banner { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -35,5 +34,6 @@ namespace CozaStore.Models
         public virtual DbSet<Size> Size { get; set; }
         public virtual DbSet<DetailsOrder> DetailsOrder { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
     }
 }
