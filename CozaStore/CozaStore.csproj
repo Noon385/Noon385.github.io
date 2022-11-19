@@ -143,6 +143,7 @@
     <Compile Include="Controllers\CozaHomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1442,6 +1443,7 @@
     <Content Include="Areas\Dashboard\Views\Admin\Order.cshtml" />
     <Content Include="Areas\Dashboard\Views\Admin\DetailsOrder.cshtml" />
     <Content Include="Areas\Dashboard\Views\Login\Login.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1477,6 +1479,7 @@
     <Content Include="Views\Cart\PaymentConfirm.cshtml" />
     <Content Include="Views\CozaHome\about.cshtml" />
     <Content Include="Views\CozaHome\contact.cshtml" />
+    <Content Include="Views\Users\Information.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
