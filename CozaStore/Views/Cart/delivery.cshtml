@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "PaymentConfirm";
+    ViewBag.Title = "delivery";
     Layout = "~/Views/Shared/_LayoutCozaStore.cshtml";
 }
 
 @using CozaStore.Models
-@{ 
+@{
     Order order = ViewBag.Bill as Order;
     User user = Session["User"] as User;
 }
@@ -87,3 +87,5 @@
            href="@Url.Action("Index","CozaHome")">Back To Home</a>
     </div>
 </div>
+
+

@@ -1485,6 +1485,7 @@
     <Content Include="Views\CozaHome\contact.cshtml" />
     <Content Include="Views\Users\Information.cshtml" />
     <Content Include="Views\Users\MyOrder.cshtml" />
+    <Content Include="Views\Cart\delivery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

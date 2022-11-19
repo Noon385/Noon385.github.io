@@ -105,7 +105,9 @@ namespace CozaStore.Areas.Dashboard.Controllers
                                   select c;
                 db.DetailsOrder.RemoveRange(orderdetals);
             }
+            db.SaveChanges();
             db.Product.RemoveRange(product);
+            db.SaveChanges();
             db.Category.Remove(category);
             db.SaveChanges();
             @TempData["MessageAlert"] = "Delete Category " + category.Name;

@@ -244,5 +244,50 @@ namespace CozaStore.Controllers
 
             return View();
         }
+        string getbillid()
+        {
+            return DateTime.Now.Year.ToString() +
+                   DateTime.Now.Month.ToString() +
+                   DateTime.Now.Day.ToString() +
+                   DateTime.Now.Hour.ToString() +
+                   DateTime.Now.Minute.ToString() +
+                   DateTime.Now.Second.ToString() +
+                   DateTime.Now.Year.ToString() +
+                   DateTime.Now.Day.ToString();
+        }
+        public ActionResult delivery()
+        {
+            string billid = getbillid();
+            Order bill = new Order();
+            User user = Session["User"] as User;
+            bill.Userid = user.Userid;
+            bill.TotalPrice = TotalPrice();
+            bill.Statuspay = 0;
+            bill.Status = 0;
+            bill.OrderDay = DateTime.Now;
+            bill.Ordercode = billid;
+            ViewBag.Message = "Payment success";
+            ViewBag.Bill = bill;
+            db.Order.Add(bill);
+            db.SaveChanges();
+            List<Cart> lstcart = GetCart();
+            foreach (var item in lstcart)
+            {
+                DetailsOrder value = new DetailsOrder()
+                {
+                    Productid = item.Productid,
+                    Orderid = bill.Orderid,
+                    Sizeid = item.Sizeid,
+                    Colorid = item.Colorid,
+                    Amount = item.ProductNumber,
+                    TotalPrice = item.TotalProductPrice
+                };
+                db.DetailsOrder.Add(value);
+            }
+            db.SaveChanges();
+            ClearCart();
+            return View();
+        }
     }
+    
 }
