@@ -48,6 +48,7 @@ namespace CozaStore.Areas.Dashboard.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create(Product product, FormCollection f, HttpPostedFileBase fFileUpload)
         {
             if(fFileUpload != null)

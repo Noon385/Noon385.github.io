@@ -160,6 +160,9 @@
     <Compile Include="Models\Color.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>CozaStore.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CozaStore.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -195,6 +198,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>CozaStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Usercomment.cs" />
     <Compile Include="Models\UserOrder.cs" />
     <Compile Include="Others\PayCompare.cs" />
     <Compile Include="Others\PayLib.cs" />
@@ -1480,6 +1484,7 @@
     <Content Include="Views\CozaHome\about.cshtml" />
     <Content Include="Views\CozaHome\contact.cshtml" />
     <Content Include="Views\Users\Information.cshtml" />
+    <Content Include="Views\Users\MyOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

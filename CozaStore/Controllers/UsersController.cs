@@ -39,5 +39,10 @@ namespace CozaStore.Controllers
             return RedirectToAction("Information",new {id = user.Userid });
 
         }
+        public ActionResult MyOrder(int id)
+        {
+            var order = db.Order.Where(n => n.Userid == id);
+            return View(order.ToList());
+        }
     }
 }

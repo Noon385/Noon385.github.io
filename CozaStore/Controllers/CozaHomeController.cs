@@ -46,12 +46,21 @@ namespace CozaStore.Controllers
         public ActionResult ProductDetails(int? productid)
         {
             Product product = db.Product.SingleOrDefault(n => n.Productid == productid);
+            var comment = from c in db.Comment
+                          join p in db.User
+                          on c.Userid equals p.Userid
+                          where c.Productid == productid
+                          select new Usercomment {
+                              comment = c,
+                              user = p
+                          };
             if(product == null)
             {
                 return RedirectToAction("Index");
             }
             ViewBag.Size = FullSize();
             ViewBag.Color = FullColor();
+            ViewBag.comment = comment.ToList();
             return View(product);
         }
         public ActionResult about()
@@ -62,6 +71,21 @@ namespace CozaStore.Controllers
         {
             return View();
         }
-        
+        public ActionResult AddComment(int productid, FormCollection f)
+        {
+            if(Session["User"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            Comment comment = new Comment();
+            User user = Session["User"] as User;
+            comment.Productid = productid;
+            comment.Userid = user.Userid;
+            comment.Message = f["comment"].ToString();
+            comment.Time = DateTime.Now;
+            db.Comment.Add(comment);
+            db.SaveChanges();
+            return RedirectToAction("ProductDetails", new { productid = productid });
+        }
     }
 }

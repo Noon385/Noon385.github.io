@@ -35,5 +35,6 @@ namespace CozaStore.Models
         public virtual DbSet<DetailsOrder> DetailsOrder { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
     }
 }

@@ -29,7 +29,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Describe, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input class="form-control" id="Des" type="text" name="Describe" value=""/>
+                       
+                        <textarea name="Describe" id="Des" class="form-control"></textarea>
                         <script>CKEDITOR.replace('Des')</script>
                         @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
                     </div>

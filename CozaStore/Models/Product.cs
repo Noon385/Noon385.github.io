@@ -19,6 +19,7 @@ namespace CozaStore.Models
         {
             this.Banner = new HashSet<Banner>();
             this.DetailsOrder = new HashSet<DetailsOrder>();
+            this.Comment = new HashSet<Comment>();
         }
     
         public int Productid { get; set; }
@@ -34,5 +35,7 @@ namespace CozaStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailsOrder> DetailsOrder { get; set; }
         public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment { get; set; }
     }
 }

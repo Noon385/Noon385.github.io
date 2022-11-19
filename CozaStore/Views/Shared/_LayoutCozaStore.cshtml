@@ -6,11 +6,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>CozaShop</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="~/Asset/~/Asset/images/icons/favicon.png" />
+    <link rel="icon" type="image/png" href="~/Asset/images/icons/favicon.png" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Asset/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
@@ -69,7 +69,18 @@
                                 My Account
                             </a>
                         }
-
+                        @if (user != null)
+                        {
+                            <a href="@Url.Action("MyOrder","Users",new {id = user.Userid })" class="flex-c-m trans-04 p-lr-25">
+                                My Order
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login","Login")" class="flex-c-m trans-04 p-lr-25">
+                                My Order
+                            </a>
+                        }
 
                     </div>
                 </div>

@@ -22,6 +22,9 @@
         <EntityTypeShape EntityType="CozaStoreModel.Order" Width="1.5" PointX="3" PointY="8" />
         <AssociationConnector Association="CozaStoreModel.FK_DetailsOrder_Order" />
         <AssociationConnector Association="CozaStoreModel.FK_Order_User" />
+        <EntityTypeShape EntityType="CozaStoreModel.Comment" Width="1.5" PointX="8.25" PointY="9" />
+        <AssociationConnector Association="CozaStoreModel.FK_Comment_Product" />
+        <AssociationConnector Association="CozaStoreModel.FK_Comment_User" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
