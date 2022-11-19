@@ -1475,6 +1475,8 @@
     <Content Include="Views\Cart\ShoppingCard.cshtml" />
     <Content Include="Views\Cart\ViewCard.cshtml" />
     <Content Include="Views\Cart\PaymentConfirm.cshtml" />
+    <Content Include="Views\CozaHome\about.cshtml" />
+    <Content Include="Views\CozaHome\contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

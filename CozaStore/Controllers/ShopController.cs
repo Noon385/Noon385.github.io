@@ -14,5 +14,12 @@ namespace CozaStore.Controllers
         {
             return View(db.Product.ToList());
         }
+        [HttpPost]
+        public ActionResult Shop(FormCollection f)
+        {
+            string item = f["search"].ToString();
+            var product = db.Product.Where(n => n.Name.Contains(item)).ToList();
+            return View(product);
+        }
     }
 }

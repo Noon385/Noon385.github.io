@@ -53,21 +53,24 @@
                     </div>
 
                     <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
+                        <a href="@Url.Action("Contact","CozaHome")" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
 
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            My Account
-                        </a>
+                        @if (user != null)
+                        {
+                            <a href="#" class="flex-c-m trans-04 p-lr-25">
+                                My Account
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login","Login")" class="flex-c-m trans-04 p-lr-25">
+                                My Account
+                            </a>
+                        }
 
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            EN
-                        </a>
 
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            USD
-                        </a>
                     </div>
                 </div>
             </div>
@@ -83,7 +86,7 @@
                     <!-- Menu desktop -->
                     <div class="menu-desktop">
                         <ul class="main-menu">
-                            <li class="active-menu">
+                            <li >
                                 <a href="@Url.Action("Index","CozaHome")">Home</a>
 
                             </li>
@@ -94,11 +97,11 @@
 
 
                             <li>
-                                <a href="about.html">About</a>
+                                <a href="@Url.Action("about","CozaHome")">About</a>
                             </li>
 
                             <li>
-                                <a href="contact.html">Contact</a>
+                                <a href="@Url.Action("contact","CozaHome")">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -135,7 +138,7 @@
         <div class="wrap-header-mobile">
             <!-- Logo moblie -->
             <div class="logo-mobile">
-                <a href="index.html"><img src="~/Asset/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+                <a href="@Url.Action("Index","CozaHome")"><img src="~/Asset/images/icons/logo-01.png" alt="IMG-LOGO"></a>
             </div>
 
             <!-- Icon header -->
@@ -173,7 +176,7 @@
 
                 <li>
                     <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
+                        <a href="@Url.Action("Contact","CozaHome")" class="flex-c-m p-lr-10 trans-04">
                             Help & FAQs
                         </a>
 
@@ -181,48 +184,27 @@
                             My Account
                         </a>
 
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            EN
-                        </a>
-
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            USD
-                        </a>
                     </div>
                 </li>
             </ul>
 
             <ul class="main-menu-m">
                 <li>
-                    <a href="index.html">Home</a>
-                    <ul class="sub-menu-m">
-                        <li><a href="index.html">Homepage 1</a></li>
-                        <li><a href="home-02.html">Homepage 2</a></li>
-                        <li><a href="home-03.html">Homepage 3</a></li>
-                    </ul>
-                    <span class="arrow-main-menu-m">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
+                    <a href="@Url.Action("Index","CozaHome")">Home</a>
+
                 </li>
 
                 <li>
-                    <a href="product.html">Shop</a>
+                    <a href="@Url.Action("Shop","Shop")">Shop</a>
+                </li>
+
+
+                <li>
+                    <a href="@Url.Action("about","CozaHome")">About</a>
                 </li>
 
                 <li>
-                    <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
-                </li>
-
-                <li>
-                    <a href="blog.html">Blog</a>
-                </li>
-
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-
-                <li>
-                    <a href="contact.html">Contact</a>
+                    <a href="@Url.Action("contact","CozaHome")">Contact</a>
                 </li>
             </ul>
         </div>
@@ -234,8 +216,8 @@
                     <img src="~/Asset/images/icons/icon-close2.png" alt="CLOSE">
                 </button>
 
-                <form class="wrap-search-header flex-w p-l-15">
-                    <button class="flex-c-m trans-04">
+                <form action="@Url.Action("Shop","Shop")" method="post" class="wrap-search-header flex-w p-l-15">
+                    <button class="flex-c-m trans-04" type="submit">
                         <i class="zmdi zmdi-search"></i>
                     </button>
                     <input class="plh3" type="text" name="search" placeholder="Search...">
@@ -254,31 +236,31 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        Categories
+                        COZASHOP
                     </h4>
 
                     <ul>
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Women
+                            <a href="@Url.Action("Index","CozaHome")" class="stext-107 cl7 hov-cl1 trans-04">
+                               Home
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Men
+                            <a href="@Url.Action("Shop","Shop")" class="stext-107 cl7 hov-cl1 trans-04">
+                                Shop
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Shoes
+                            <a href="@Url.Action("contact","CozaHome")" class="stext-107 cl7 hov-cl1 trans-04">
+                                Contact
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Watches
+                            <a href="@Url.Action("about","CozaHome")" class="stext-107 cl7 hov-cl1 trans-04">
+                                About
                             </a>
                         </li>
                     </ul>
@@ -291,25 +273,25 @@
 
                     <ul>
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a href="@Url.Action("contact","CozaHome")" class="stext-107 cl7 hov-cl1 trans-04">
                                 Track Order
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a href="@Url.Action("contact","CozaHome")" class="stext-107 cl7 hov-cl1 trans-04">
                                 Returns
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a href="@Url.Action("contact","CozaHome")" class="stext-107 cl7 hov-cl1 trans-04">
                                 Shipping
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a href="@Url.Action("contact","CozaHome")" class="stext-107 cl7 hov-cl1 trans-04">
                                 FAQs
                             </a>
                         </li>

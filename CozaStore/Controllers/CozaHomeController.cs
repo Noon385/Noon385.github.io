@@ -54,5 +54,14 @@ namespace CozaStore.Controllers
             ViewBag.Color = FullColor();
             return View(product);
         }
+        public ActionResult about()
+        {
+            return View();
+        }
+        public ActionResult contact()
+        {
+            return View();
+        }
+        
     }
 }

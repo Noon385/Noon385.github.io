@@ -82,7 +82,11 @@
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="~/AssetAdmin/images/users/1.jpg" alt="user" class="img-circle" width="30">
-                            </a>@admin.FullName
+                            </a>
+                            @if (admin != null)
+                            {
+                                @admin.FullName
+                            }
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
