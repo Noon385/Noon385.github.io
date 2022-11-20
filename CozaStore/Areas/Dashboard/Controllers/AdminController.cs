@@ -127,5 +127,25 @@ namespace CozaStore.Areas.Dashboard.Controllers
             return RedirectToAction("Index");
 
         }
+
+        public ActionResult PrinfOrder(int id)
+        {
+            var order = db.Order.SingleOrDefault(n => n.Orderid == id);
+            var user = db.User.SingleOrDefault(n => n.Userid == order.Userid);
+            var lstdetails = db.DetailsOrder.Where(n => n.Orderid == id)
+                            .Join(
+                             db.Product,
+                             p => p.Productid,
+                             c => c.Productid,
+                             (c,p) => new getproduct
+                             {
+                                 product = p,
+                                 detailsOrder = c
+                             }
+                    );
+            ViewBag.product = lstdetails.ToList();
+            ViewBag.user = user;
+            return View(order);
+        }
     }
 }

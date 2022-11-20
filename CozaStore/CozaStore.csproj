@@ -1447,6 +1447,7 @@
     <Content Include="Areas\Dashboard\Views\Admin\Order.cshtml" />
     <Content Include="Areas\Dashboard\Views\Admin\DetailsOrder.cshtml" />
     <Content Include="Areas\Dashboard\Views\Login\Login.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Admin\PrinfOrder.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

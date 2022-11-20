@@ -56,6 +56,7 @@
                         </div>
                     </div>
                     <div class="message-box">
+                        <a href="@Url.Action("PrinfOrder","Admin", new {id = order.Orderid })" class="btn btn-primary">Prinf</a>
                         <a href="@Url.Action("Accept","Admin", new {id = order.Orderid })" class="btn btn-success">Accept</a>
                         <a href="@Url.Action("Cancel","Admin", new {id = order.Orderid })" class="btn btn-danger">Cancel</a>
                     </div>
