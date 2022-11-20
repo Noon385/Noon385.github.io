@@ -24,6 +24,9 @@
                                     #
                                 </th>
                                 <th>
+                                    Image
+                                </th>
+                                <th>
                                     @Html.DisplayNameFor(model => model.FullName)
                                 </th>
                                 <th>
@@ -35,9 +38,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Gmail)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Password)
-                                </th>
+                                
                                 <th>
                                     @Html.DisplayNameFor(model => model.Phone)
                                 </th>
@@ -57,6 +58,9 @@
                                         @{ 
                                             k++;
                                         }
+                                    </td>
+                                    <td>
+                                        <img src="~/Asset/images/@item.image" width="50" alt="Alternate Text" />
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.FullName)
@@ -80,9 +84,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Gmail)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Password)
-                                    </td>
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Phone)
                                     </td>

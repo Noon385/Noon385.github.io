@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CozaStore.Models;
-
 namespace CozaStore.Areas.Dashboard.Controllers
 {
     public class UsersController : Controller
@@ -46,10 +46,31 @@ namespace CozaStore.Areas.Dashboard.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Userid,FullName,Gender,BirthDay,Gmail,Password,Phone,Address")] User user)
+        public ActionResult Create([Bind(Include = "Userid,FullName,Gender,BirthDay,Gmail,Password,Phone,Address")] User user, HttpPostedFileBase fFileUpload)
         {
             if (ModelState.IsValid)
             {
+                if(fFileUpload != null)
+                {
+                    var FileName = Path.GetFileName(fFileUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Asset/images"), FileName);
+                    if (!System.IO.File.Exists(path))
+                    {
+                        fFileUpload.SaveAs(path);
+                    }
+                    user.image = FileName;
+                }
+                else
+                {
+                    if(user.Gender == true)
+                    {
+                        user.image = "gallery-03.jpg";
+                    }
+                    else
+                    {
+                        user.image = "gallery-02.jpg";
+                    }
+                }
                 db.User.Add(user);
                 db.SaveChanges();
                 TempData["AlertMessage"] = "New Users " + user.FullName;
@@ -79,10 +100,20 @@ namespace CozaStore.Areas.Dashboard.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Userid,FullName,Gender,BirthDay,Gmail,Password,Phone,Address")] User user)
+        public ActionResult Edit([Bind(Include = "Userid,FullName,Gender,BirthDay,Gmail,Password,Phone,Address")] User user, HttpPostedFileBase fFileUpload)
         {
             if (ModelState.IsValid)
             {
+                if (fFileUpload != null)
+                {
+                    var FileName = Path.GetFileName(fFileUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Asset/images"), FileName);
+                    if (!System.IO.File.Exists(path))
+                    {
+                        fFileUpload.SaveAs(path);
+                    }
+                    user.image = FileName;
+                }
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["AlertMessage"] = "Update Users " + user.FullName;

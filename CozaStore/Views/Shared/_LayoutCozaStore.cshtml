@@ -74,6 +74,9 @@
                             <a href="@Url.Action("MyOrder","Users",new {id = user.Userid })" class="flex-c-m trans-04 p-lr-25">
                                 My Order
                             </a>
+                            <a href="@Url.Action("Logout","Users",new {id = user.Userid })" class="flex-c-m trans-04 p-lr-25">
+                                Logout
+                            </a>
                         }
                         else
                         {
@@ -134,11 +137,10 @@
                         }
                         else
                         {
-                            <div style="margin-left: 30px">
-                                <p>
-                                    @user.FullName
-                                </p>
+                            <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-l-22 m-t-6">
+                                <img src="~/Asset/images/@user.image" alt="AVATAR">
                             </div>
+                            
                         }
                     </div>
                 </nav>
@@ -195,6 +197,9 @@
                         {
                             <a href="@Url.Action("Information","Users",new {id = user.Userid })" class="flex-c-m trans-04 p-lr-25">
                                 My Account
+                            </a>
+                            <a href="@Url.Action("Information","Users",new {id = user.Userid })" class="flex-c-m trans-04 p-lr-25">
+                                Logout 
                             </a>
                         }
                         else

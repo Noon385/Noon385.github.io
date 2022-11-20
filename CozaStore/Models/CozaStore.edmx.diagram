@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="CozaStoreModel.Banner" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="CozaStoreModel.Product" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CozaStoreModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="CozaStoreModel.User" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
         <AssociationConnector Association="CozaStoreModel.FK_Banner_Product" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CozaStoreModel.Color" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="CozaStoreModel.Size" Width="1.5" PointX="0.75" PointY="1.125" />
@@ -21,10 +20,11 @@
         <AssociationConnector Association="CozaStoreModel.FK_Product_Category" />
         <EntityTypeShape EntityType="CozaStoreModel.Order" Width="1.5" PointX="3" PointY="8" />
         <AssociationConnector Association="CozaStoreModel.FK_DetailsOrder_Order" />
-        <AssociationConnector Association="CozaStoreModel.FK_Order_User" />
         <EntityTypeShape EntityType="CozaStoreModel.Comment" Width="1.5" PointX="8.25" PointY="9" />
         <AssociationConnector Association="CozaStoreModel.FK_Comment_Product" />
+        <EntityTypeShape EntityType="CozaStoreModel.User" Width="1.5" PointX="0.75" PointY="8.125" />
         <AssociationConnector Association="CozaStoreModel.FK_Comment_User" />
+        <AssociationConnector Association="CozaStoreModel.FK_Order_User" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

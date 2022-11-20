@@ -46,7 +46,7 @@
           <Key>
             <PropertyRef Name="Commentid" />
           </Key>
-          <Property Name="Commentid" Type="int" Nullable="false" />
+          <Property Name="Commentid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Userid" Type="int" />
           <Property Name="Productid" Type="int" />
           <Property Name="Message" Type="text" />
@@ -117,6 +117,7 @@
           <Property Name="Password" Type="varchar" MaxLength="32" />
           <Property Name="Phone" Type="varchar" MaxLength="13" />
           <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="image" Type="varchar" MaxLength="150" />
         </EntityType>
         <Association Name="FK_Banner_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
@@ -328,21 +329,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Userid" />
-          </Key>
-          <Property Name="Userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="Boolean" />
-          <Property Name="BirthDay" Type="DateTime" Precision="3" />
-          <Property Name="Gmail" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="CozaStoreModel.FK_Order_User" FromRole="User" ToRole="Order" />
-          <NavigationProperty Name="Comment" Relationship="CozaStoreModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
-        </EntityType>
         <Association Name="FK_Banner_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="Banner" Type="Self.Banner" Multiplicity="*" />
@@ -360,7 +346,6 @@
           <EntitySet Name="Banner" EntityType="Self.Banner" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="User" EntityType="Self.User" />
           <AssociationSet Name="FK_Banner_Product" Association="Self.FK_Banner_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Banner" EntitySet="Banner" />
@@ -390,18 +375,19 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="DetailsOrder" EntitySet="DetailsOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_Order_User" Association="CozaStoreModel.FK_Order_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
           <EntitySet Name="Comment" EntityType="CozaStoreModel.Comment" />
           <AssociationSet Name="FK_Comment_Product" Association="CozaStoreModel.FK_Comment_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <EntitySet Name="User" EntityType="CozaStoreModel.User" />
           <AssociationSet Name="FK_Comment_User" Association="CozaStoreModel.FK_Comment_User">
             <End Role="User" EntitySet="User" />
             <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="CozaStoreModel.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Color">
@@ -519,18 +505,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Order_User">
-          <End Type="CozaStoreModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="CozaStoreModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Userid" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Userid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="Commentid" />
@@ -555,6 +529,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="BirthDay" Type="DateTime" Precision="3" />
+          <Property Name="Gmail" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Comment" Relationship="CozaStoreModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Order" Relationship="CozaStoreModel.FK_Order_User" FromRole="User" ToRole="Order" />
+        </EntityType>
         <Association Name="FK_Comment_User">
           <End Type="CozaStoreModel.User" Role="User" Multiplicity="0..1" />
           <End Type="CozaStoreModel.Comment" Role="Comment" Multiplicity="*" />
@@ -563,6 +553,18 @@
               <PropertyRef Name="Userid" />
             </Principal>
             <Dependent Role="Comment">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Type="CozaStoreModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="CozaStoreModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="Order">
               <PropertyRef Name="Userid" />
             </Dependent>
           </ReferentialConstraint>
@@ -618,20 +620,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="CozaStoreModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
-                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -693,6 +681,21 @@
                 <ScalarProperty Name="Productid" ColumnName="Productid" />
                 <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="Commentid" ColumnName="Commentid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="CozaStoreModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

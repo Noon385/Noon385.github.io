@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,7 +39,7 @@ namespace CozaStore.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(FormCollection f)
+        public ActionResult Register(FormCollection f, HttpPostedFileBase fFileUpload)
         {
             string FullName = f["FullName"]; 
             string Email = f["Email"]; 
@@ -51,13 +52,13 @@ namespace CozaStore.Controllers
 
             if(Password != RePassword)
             {
-                TempData["err1"] = "Erro";
+                TempData["err1"] = "Password no Same!!!";
                 return RedirectToAction("Register");
             }
             User usertmp = db.User.SingleOrDefault(n => n.Gmail == Email);
             if(usertmp != null)
             {
-                TempData["err1"] = "Email erro";
+                TempData["err1"] = "Email already exists!!!";
                 return RedirectToAction("Register");
             }
             User user = new User();
@@ -68,6 +69,27 @@ namespace CozaStore.Controllers
             user.Gender = Gender;
             user.Phone = PhoneNumber;
             user.Address = Address;
+            if (fFileUpload != null)
+            {
+                var FileName = Path.GetFileName(fFileUpload.FileName);
+                var path = Path.Combine(Server.MapPath("~/Asset/images"), FileName);
+                if (!System.IO.File.Exists(path))
+                {
+                    fFileUpload.SaveAs(path);
+                }
+                user.image = FileName;
+            }
+            else
+            {
+                if (user.Gender == true)
+                {
+                    user.image = "gallery-03.jpg";
+                }
+                else
+                {
+                    user.image = "gallery-02.jpg";
+                }
+            }
             db.User.Add(user);
             db.SaveChanges();
             return RedirectToAction("Login");

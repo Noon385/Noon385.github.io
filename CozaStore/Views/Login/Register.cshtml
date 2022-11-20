@@ -8,7 +8,7 @@
     <div class="container">
         <div class="flex-c flex-tr">
             <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                @using (Html.BeginForm("Register", "Login"))
+                @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                 {
 
                     <h4 class="mtext-105 cl2 txt-center p-b-30">
@@ -21,6 +21,14 @@
                         <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="FullName" placeholder="Your Full Name" required>
 
                         <i class="zmdi zmdi-card how-pos4 pointer-none"></i>
+                    </div>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <div class="stext-111 cl2 plh3 size-116  p-l-62 p-r-30" style="padding-top: 10px;">
+                            <input type="file" name="fFileUpload" placeholder="Your Image">
+                        </div>
+                        
+
+                        <i class="zmdi zmdi-image how-pos4 pointer-none"></i>
                     </div>
                     <div class="bor8 m-b-20 how-pos4-parent">
                         <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="Email" placeholder="Your Email" required>
@@ -49,7 +57,7 @@
                                 </label>
                             </div>
                             <div class="form-check m-l-100">
-                                <input class="form-check-input" type="radio" name="Gender" value="false" id="flexRadioDefault2" >
+                                <input class="form-check-input" type="radio" name="Gender" value="false" id="flexRadioDefault2">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Famale
                                 </label>

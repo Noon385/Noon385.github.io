@@ -44,5 +44,10 @@ namespace CozaStore.Controllers
             var order = db.Order.Where(n => n.Userid == id);
             return View(order.ToList());
         }
+        public ActionResult Logout()
+        {
+            Session["User"] = null;
+            return RedirectToAction("Index", "CozaHome");
+        }
     }
 }
